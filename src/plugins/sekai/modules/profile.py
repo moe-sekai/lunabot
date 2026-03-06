@@ -87,6 +87,7 @@ async def get_card_full_thumbnail(
     after_training: bool=None, 
     pcard: Dict=None, 
     custom_text: str=None,
+    level_label: str="lv",
     high_res: bool=False,
 ):
     if isinstance(card_or_card_id, int):
@@ -135,11 +136,17 @@ async def get_card_full_thumbnail(
                 draw.rectangle((0, img_h - 24, img_w, img_h), fill=(70, 70, 100, 255))
                 draw.text((6, img_h - 31), custom_text, font=get_font(DEFAULT_BOLD_FONT, 20), fill=WHITE)
             else:
-                level = pcard['level']
+                level_label_lower = str(level_label).lower()
+                if level_label_lower == "slv":
+                    level = pcard.get('skillLevel', 1)
+                    text = f"SLv.{level}"
+                else:
+                    level = pcard['level']
+                    text = f"Lv.{level}"
                 draw = ImageDraw.Draw(img)
                 draw.rectangle((0, img_h - 24, img_w, img_h), fill=(70, 70, 100, 255))
-                draw.text((6, img_h - 31), f"Lv.{level}", font=get_font(DEFAULT_BOLD_FONT, 20), fill=WHITE)
-            
+                draw.text((6, img_h - 25), text, font=get_font(DEFAULT_BOLD_FONT, 20), fill=WHITE)
+
         # 绘制边框
         frame_img = frame_img.resize((img_w, img_h))
         img.paste(frame_img, (0, 0), frame_img)
