@@ -749,6 +749,17 @@ async def resource_boxes_download_fn(base_url):
 
 # ================================ MasterData自定义转换 ================================ #
 
+@MasterDataManager.map_function("costume3ds", regions=COMPACT_DATA_REGIONS)
+def costume3ds_map_fn(costume3ds):
+    ret = []
+    for item in costume3ds:
+        if '_assetbundleName' in item:
+            item['assetbundleName'] = item.pop('_assetbundleName')
+            ret.append(item)
+        elif 'assetbundleName' in item:
+            ret.append(item)
+    return ret
+
 @MasterDataManager.map_function("virtualLives")
 def vlives_map_fn(vlives):
     all_ret = []
