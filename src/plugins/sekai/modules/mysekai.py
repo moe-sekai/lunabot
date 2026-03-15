@@ -2006,6 +2006,105 @@ async def update_bd_msr_limit_uid(ctx: SekaiHandlerContext, qid: int, force: boo
         additional_msg=f"是否将你的{get_region_name(ctx.region)}MSR查询限制ID切换为当前绑定的ID: "
         f"{process_hide_uid(ctx, uid, keep=6)}？一周内只能切换一次")
 
+# 烤森材料查询
+async def compose_mysekai_material_info_image(ctx: SekaiHandlerContext, qid: int, show_all: bool = False) -> Image.Image:
+    # 获取用户详细信息
+    profile, pmsg = await get_detailed_profile(
+        ctx, 
+        qid, 
+        filter=get_detailed_profile_card_filter('userMysekaiMaterials'),
+        raise_exc=True, 
+        ignore_hide=True
+    )
+    
+    user_materials = profile.get('userMysekaiMaterials',[])
+    if not user_materials:
+        raise ReplyException("你的账号中没有任何烤森材料记录，或Suite数据来源未提供userMysekaiMaterials数据。")
+
+    materials_wrapper = RegionMasterDataWrapper(ctx.region, "mysekaiMaterials")
+    cn_materials_wrapper = RegionMasterDataWrapper('cn', "mysekaiMaterials")
+
+    materials_data = await materials_wrapper.get()
+    try:
+        cn_materials_data = await cn_materials_wrapper.get()
+    except Exception:
+        cn_materials_data = []
+
+    materials_dict = {m['id']: m for m in materials_data}
+    cn_materials_dict = {m['id']: m for m in cn_materials_data}
+
+    # 组装展示项
+    display_items = []
+    for um in user_materials:
+        quantity = um['quantity']
+        
+        if quantity == 0 and not show_all:
+            continue
+            
+        mat_id = um['mysekaiMaterialId']
+        
+        mat_name = f"未知烤森材料({mat_id})"
+        seq = 999999
+        desc = ""  # 用于存放描述信息
+        
+        if mat_id in cn_materials_dict and cn_materials_dict[mat_id].get('name'):
+            mat_name = cn_materials_dict[mat_id]['name']
+            seq = cn_materials_dict[mat_id].get('seq', seq)
+            desc = cn_materials_dict[mat_id].get('description', '')
+        elif mat_id in materials_dict and materials_dict[mat_id].get('name'):
+            mat_name = materials_dict[mat_id]['name']
+            seq = materials_dict[mat_id].get('seq', seq)
+            desc = materials_dict[mat_id].get('description', '')
+
+        # 针对 35-60 的角色记忆碎片进行名称特化替换
+        if 35 <= mat_id <= 60 and desc:
+            import re
+            match = re.search(r'和(.*?)的(?:回忆|回憶)碎片', desc)
+            if match:
+                chara_name = match.group(1)
+                mat_name = f"{chara_name}的记忆"
+            
+        display_items.append({
+            'id': mat_id,
+            'name': mat_name,
+            'quantity': quantity,
+            'seq': seq
+        })
+        
+    if not display_items:
+        raise ReplyException("你当前没有任何持有数量大于0的烤森材料。\n(可使用\"/烤森材料 all\"查看所有历史获取记录)")
+    
+    display_items.sort(key=lambda x: (x['seq'], x['id']))
+    
+    icons = await batch_gather(*[get_mysekai_res_icon(ctx, f"mysekai_material_{item['id']}") for item in display_items])
+    for item, icon in zip(display_items, icons):
+        item['icon'] = icon
+
+    # 绘图
+    with Canvas(bg=SEKAI_BLUE_BG).set_padding(BG_PADDING) as canvas:
+        with VSplit().set_content_align('lt').set_item_align('lt').set_sep(16):
+            # 顶部个人名片
+            await get_detailed_profile_card(ctx, profile, pmsg)
+            
+            # 顶部提示
+            tip_text = "已隐藏数量为0的烤森材料 可添加 all 参数查看所有记录" if not show_all else "当前已显示所有历史获取过的烤森材料（包含数量为0）"
+            TextBox(tip_text, TextStyle(font=DEFAULT_BOLD_FONT, size=18, color=(50, 50, 50))).set_bg(roundrect_bg()).set_padding(12)
+            
+            # 四列网格布局
+            with Grid(col_count=4).set_sep(12, 12).set_item_align('lt').set_content_align('lt'):
+                for item in display_items:
+                    box_bg = roundrect_bg()
+                    with HSplit().set_content_align('l').set_item_align('c').set_sep(10).set_padding(10).set_bg(box_bg).set_size((280, 80)):
+                        ImageBox(item['icon'], size=(56, 56), use_alphablend=True)
+                        with VSplit().set_content_align('lt').set_item_align('lt').set_sep(6):
+                            name_len = get_str_display_length(item['name'])
+                            name_font_size = 18 if name_len <= 16 else 14
+                            
+                            TextBox(item['name'], TextStyle(font=DEFAULT_BOLD_FONT, size=name_font_size, color=(70, 60, 80)), overflow='clip').set_w(190)
+                            TextBox(f"x{item['quantity']}", TextStyle(font=DEFAULT_BOLD_FONT, size=16, color=(50, 40, 60)))
+
+    add_watermark(canvas)
+    return await canvas.get_img()
 
 
 # ======================= 指令处理 ======================= #
@@ -2350,3 +2449,19 @@ async def msr_auto_push():
                 except: pass
 
         await batch_gather(*[push(task) for task in tasks], batch_size=MSR_PUSH_CONCURRENCY_CFG.get())
+
+# 查询烤森材料信息
+pjsk_mysekai_material_info = SekaiCmdHandler([
+    "/pjsk mysekai材料", "/烤森材料", "/mysekai材料",
+])
+pjsk_mysekai_material_info.check_cdrate(cd).check_wblist(gbl)
+@pjsk_mysekai_material_info.handle()
+async def _(ctx: SekaiHandlerContext):
+    args = ctx.get_args().strip().lower()
+
+    show_all = 'all' in args
+    
+    return await ctx.asend_reply_msg(await get_image_cq(
+        await compose_mysekai_material_info_image(ctx, ctx.user_id, show_all),
+        low_quality=True,
+    ))
