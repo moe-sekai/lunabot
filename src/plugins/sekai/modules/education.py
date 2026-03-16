@@ -350,7 +350,9 @@ async def compose_area_item_upgrade_materials_image(ctx: SekaiHandlerContext, qi
     area_item_lv_materials: dict[int, dict[int, dict[int, int]]] = {}
     for item_id in item_ids:
         for lv, resbox_id in area_item_lv_shop_item_resbox_ids[item_id].items():
-            for cost in (await ctx.md.shop_items.find_by('resourceBoxId', resbox_id)).get('costs', []):
+            if not (shop_item := await ctx.md.shop_items.find_by('resourceBoxId', resbox_id)):
+                continue
+            for cost in shop_item.get('costs', []):
                 cost = cost['cost']
                 res_id = cost['resourceId']
                 if cost['resourceType'] == 'coin':
@@ -365,7 +367,9 @@ async def compose_area_item_upgrade_materials_image(ctx: SekaiHandlerContext, qi
         sum_materials: dict[int, int] = {}
         # 枚举等级和材料
         for lv in range(user_lv + 1, area_item_max_levels[item_id] + 1):
-            for mid, quantity in lv_materials[lv].items():
+            if not (materials := lv_materials.get(lv)):
+                continue
+            for mid, quantity in materials.items():
                 sum_materials[mid] = sum_materials.get(mid, 0) + quantity
                 area_item_lv_sum_materials.setdefault(item_id, {}).setdefault(lv, {})[mid] = sum_materials[mid]
 
@@ -412,8 +416,10 @@ async def compose_area_item_upgrade_materials_image(ctx: SekaiHandlerContext, qi
                         for lv in range(user_area_item_lower_lv + 1, area_item_max_levels[item_id] + 1):
                             # 统计道具是否足够
                             if lv > current_lv:
+                                if not (lv_sum := lv_sum_materials.get(lv)):
+                                    continue
                                 material_is_enough: dict[int, bool] = {}
-                                for mid, quantity in lv_sum_materials[lv].items():
+                                for mid, quantity in lv_sum.items():
                                     material_is_enough[mid] = user_materials.get(mid, 0) >= quantity
                                 lv_can_upgrade = lv_can_upgrade and all(material_is_enough.values())
 
