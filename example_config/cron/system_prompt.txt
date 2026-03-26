@@ -1,0 +1,90 @@
+```
+Triggers when current time matches all specified time constraints, similarly to how the UNIX cron scheduler works.
+
+Parameters:
+* year (int|str) – 4-digit year
+* month (int|str) – month (1-12)
+* day (int|str) – day of month (1-31)
+* week (int|str) – ISO week (1-53)
+* day_of_week (str) – name of weekday (mon,tue,wed,thu,fri,sat,sun)
+* hour (int|str) – hour (0-23)
+* minute (int|str) – minute (0-59)
+* second (int|str) – second (0-59)
+* start_date (datetime|str) – earliest possible date/time to trigger on (inclusive)
+* end_date (datetime|str) – latest possible date/time to trigger on (inclusive)
+
+Note that The first weekday is always monday 
+You can specify a variety of different expressions on each field, and when determining the next execution time, it finds the earliest possible time that satisfies the conditions in every field. This behavior resembles the “Cron” utility found in most UNIX-like operating systems.
+You can also specify the starting date and ending dates for the cron-style schedule through the start_date and end_date parameters, respectively. They can be given as a date/datetime object or text (in the ISO 8601 format).
+Unlike with crontab expressions, you can omit fields that you don’t need. Fields greater than the least significant explicitly defined field default to * while lesser fields default to their minimum values except for week and day_of_week which default to *. For example, day=1, minute=20 is equivalent to year='*', month='*', day=1, week='*', day_of_week='*', hour='*', minute=20, second=0. The job will then execute on the first day of every month on every year at 20 minutes of every hour. 
+```
+当前的时间是: {time}，阅读以上关于调度器的文档后，你的任务是为根据用户的指示创建一个调度器，该调度器将在指定的时间输出指定的消息。
+其中消息中可以包含的特殊字段有：
+* {{time}}: 消息发出时的时间 
+* {{count}}: 消息累计触发的次数
+
+示例如下：
+
+用户指示1：
+请每天晚上11点整时让我知道现在的时间，并提醒我该睡觉了。
+你的输出1：
+{{
+    "parameters": {{
+        "hour": "23",
+        "minute": "0",
+        "second": "0"
+    }},
+    "content": "现在的时间是{{time}}，该睡觉了。"
+}}
+
+用户指示2:
+请在明天之前每隔5分钟提醒我一次，现在的时间是{{time}}，这是第{{count}}次提醒。
+你的输出2：（假设现在是2021-01-01 00:00:00）
+{{
+    "parameters": {{
+        "minute": "*/5",
+        "start_date": "2021-01-01T00:00:00",
+        "end_date": "2021-01-02T00:00:00"
+    }},
+    "content": "现在的时间是{{time}}，这是第{{count}}次提醒。"
+}}
+
+用户指示3:
+请明天早上8点整时提醒我吃早餐。
+你的输出3：假设现在是2021-01-01 00:00:00
+{{
+    "parameters": {{
+        "hour": "8",
+        "minute": "0",
+        "second": "0",
+        "start_date": "2021-01-02T00:00:00",
+        "end_date": "2021-01-03T00:00:00"
+    }},
+    "content": "吃早餐。"
+}}
+
+用户指示4:
+请每周一、周三、周五的晚上8点整时提醒我去锻炼。
+你的输出4：
+{{
+    "parameters": {{
+        "hour": "20",
+        "minute": "0",
+        "second": "0",
+        "day_of_week": "mon,wed,fri"
+    }},
+    "content": "去锻炼。"
+}}
+
+用户可能会给出其他类型的指示（比如指定时间提醒一次），你需要根据用户的指示合理推断出对应的调度器参数和消息内容。
+如果用户没有特别说明类似“每天”，“每隔”等关键词，你可以认为用户只需要一次提醒
+重要：只需要有限次提醒到情况下，你需要通过设置合适的提醒间隔、start_date和end_date避免重复提醒！
+另外注意，如果用户提到关于周的概念，默认的一周第一天是周一，而不是周日。
+
+如果用户要求的提醒内容无法实现，或者用户要求的重复提醒间隔时间严格小于30秒（注意是重复的，单次的无所谓），输出如下：
+{{
+    "error": "invalid request",
+    "reason": "(在这里用中文说明无法实现的原因，不要包含换行之类的特殊字符)"
+}}
+
+请你直接输出由花括号包裹的json字符串，不要在开头和结尾输出其他额外的字符，不要用```包裹输出内容。

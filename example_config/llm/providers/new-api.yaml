@@ -1,0 +1,36 @@
+qps_limit: 5
+quota_sync_interval_sec: 60*60*6
+price_unit: "$"
+
+api_key: "xxx"
+base_url: "https://xxx/v1"
+
+models:
+  - name: "gemini-2.0-flash"
+    model_id: "3885-gemini-2.0-flash"
+    is_multimodal: true
+
+  - name: "gemini-2.5-flash-thinking"
+    model_id: "3885-gemini-2.5-flash"
+    is_multimodal: true
+
+  - name: "gemini-2.5-flash"
+    model_id: "3885-gemini-2.5-flash-nothinking"
+    is_multimodal: true
+
+  - name: "gemini-2.5-pro-thinking"
+    model_id: "3885-gemini-2.5-pro"
+    is_multimodal: true
+
+  - name: "gemini-2.5-pro"
+    model_id: "3885-gemini-2.5-pro-nothinking"
+    is_multimodal: true
+
+  - name: "gpt-5"
+    is_multimodal: false
+
+  - name: "gpt-5-mini"
+    is_multimodal: false
+
+  - name: "gpt-5-nano"
+    is_multimodal: false

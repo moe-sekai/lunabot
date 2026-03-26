@@ -1,0 +1,14 @@
+bot_ids:  # 需要监控的bot QQ号列表
+  - 123456
+
+check_interval: 3                 # 存活检测间隔（秒）
+time_threshold: 10                # 状态改变多久后才发送提醒（秒）
+notify_at_connect: False          # 恢复连线时是否发送邮件提醒
+notify_at_disconnect: True        # 断线时是否发送邮件提醒
+notify_at_first: False            # 如果bot启动时已经断线/连接，是否发送一次邮件提醒
+report_groups:  # 连线通知发送的群聊
+  - 123
+
+status_notify_time: [23, 50, 0]   # 每天的哪个时间点发送状态通知（时，分，秒）
+
+group_poke_reply_interval: 3      # 群聊戳一戳回复间隔（秒）

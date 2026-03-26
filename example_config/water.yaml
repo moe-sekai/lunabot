@@ -1,0 +1,1 @@
+insert_hashes_interval_seconds: 10  # 插入消息hash记录间隔时间

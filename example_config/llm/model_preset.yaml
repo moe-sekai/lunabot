@@ -1,0 +1,47 @@
+basic_chat_mm: gg:gemini-2.5-flash-thinking
+
+translation: 
+  - gg:gemini-2.5-flash
+  - na:gemini-2.5-flash
+  - ay:gemini-2.5-flash
+
+translator: gg:gemini-2.5-flash
+
+chat:
+  image_caption: gg:gemini-2.5-flash-lite
+
+  private:
+    text: "&basic_chat_mm"
+    mm: "&basic_chat_mm"
+    tool: "&basic_chat_mm"
+    image: or:gemini-2.5-flash-image
+  
+  group:
+    text: "&basic_chat_mm"
+    mm: "&basic_chat_mm"
+    tool: "&basic_chat_mm"
+    image: or:gemini-2.5-flash-image-free
+
+cron: 
+  - gg:gemini-2.5-flash
+  - na:gemini-2.5-flash
+  - ay:gemini-2.5-flash
+  - or:gemini-2.5-flash
+
+sekai:
+  stamp_cutout:
+    - or:gemini-2.5-flash-image
+    - or:gemini-2.5-flash-image
+
+  story_summary:
+    event: 
+      - gg:gemini-2.5-flash
+      - na:gemini-2.5-flash
+      - ay:gemini-2.5-flash
+      - or:gemini-2.5-flash
+    card: 
+      - gg:gemini-2.5-flash
+      - na:gemini-2.5-flash
+      - ay:gemini-2.5-flash
+      - or:gemini-2.5-flash
+

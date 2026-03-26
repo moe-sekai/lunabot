@@ -1,0 +1,6 @@
+template: |
+  【LunaBot (XXX Deployed) 使用帮助】
+  发送 /help 英文服务名 查看各服务的详细帮助
+  例如发送 /help sekai 查看世界计划服务的帮助
+  可查询的服务列表:
+  {service_list}

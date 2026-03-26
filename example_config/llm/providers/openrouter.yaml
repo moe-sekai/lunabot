@@ -1,0 +1,50 @@
+qps_limit: 5
+quota_sync_interval_sec: 60*60*6
+price_unit: "$"
+
+api_key: "xxx"
+base_url: "https://xxx/api/v1"
+auth_key_url: "https://xxx/api/v1/auth/key"
+
+models:
+  - name: "deepseek-r1-free"
+    model_id: "deepseek/deepseek-r1-0528:free"
+    allow_online: true
+
+  - name: "deepseek-r1"
+    model_id: "deepseek/deepseek-r1-0528"
+    input_pricing: 0.75/1e6
+    output_pricing: 2.4/1e6
+    allow_online: true
+
+  - name: "deepseek-v3"
+    model_id: "deepseek/deepseek-chat-v3-0324"
+    input_pricing: 0.49/1e6
+    output_pricing: 0.89/1e6
+    allow_online: true
+
+  - name: "deepseek-v3-free"
+    model_id: "deepseek/deepseek-chat-v3-0324:free"
+    allow_online: true
+
+  - name: "qwen3-free"
+    model_id: "qwen/qwen3-235b-a22b:free"
+    allow_online: true
+
+  - name: "qwen3"
+    model_id: "qwen/qwen3-235b-a22b"
+    input_pricing: 0.2/1e6
+    output_pricing: 0.6/1e6
+    allow_online: true
+
+  - name: "gemini-2.5-flash"
+    model_id: "google/gemini-2.5-flash"
+    input_pricing: 0.3/1e6
+    output_pricing: 2.5/1e6
+    is_multimodal: true
+
+  - name: "gemini-2.5-flash-lite"
+    model_id: "google/gemini-2.5-flash-lite"
+    input_pricing: 0.1/1e6
+    output_pricing: 0.4/1e6
+    is_multimodal: true

@@ -1,0 +1,123 @@
+qps_limit: 5
+quota_sync_interval_sec: 60*60*6
+price_unit: "$"
+
+http_options:
+  base_url: "xxx"
+
+api_key: "xxx"
+
+models:
+
+  # ============= 2.5 models ============= #
+
+  - name: "gemini-2.5-pro"
+    model_id: "models/gemini-2.5-pro"
+    is_multimodal: true
+    client_kwargs:
+      thinking_config:
+        include_thoughts: true
+        thinking_budget: 128
+
+  - name: "gemini-2.5-pro-high"
+    model_id: "models/gemini-2.5-pro"
+    is_multimodal: true
+    client_kwargs:
+      thinking_config:
+        include_thoughts: true
+        thinking_budget: -1
+
+  - name: "gemini-2.5-flash"
+    model_id: "models/gemini-2.5-flash"
+    is_multimodal: true
+    client_kwargs:
+      thinking_config:
+        include_thoughts: true
+        include_thoughts: false
+
+  - name: "gemini-2.5-flash-thinking"
+    model_id: "models/gemini-2.5-flash"
+    is_multimodal: true
+    client_kwargs:
+      thinking_config:
+        include_thoughts: true
+        thinking_budget: 512
+
+  - name: "gemini-2.5-flash-thinking-high"
+    model_id: "models/gemini-2.5-flash"
+    is_multimodal: true
+    client_kwargs:
+      thinking_config:
+        include_thoughts: true
+        thinking_budget: -1
+
+  # ============= 3 models ============= #
+
+  - name: "gemini-3-pro"
+    model_id: "models/gemini-3-pro-preview"
+    is_multimodal: true
+    client_kwargs:
+      thinking_config:
+        include_thoughts: true
+        thinking_level: low
+
+  - name: "gemini-3-pro-high"
+    model_id: "models/gemini-3-pro-preview"
+    is_multimodal: true
+    client_kwargs:
+      thinking_config:
+        include_thoughts: true
+        thinking_level: high
+
+  - name: "gemini-3-flash"
+    model_id: "models/gemini-3-flash-preview"
+    is_multimodal: true
+    client_kwargs:
+      thinking_config:
+        include_thoughts: false
+
+  - name: "gemini-3-flash-thinking"
+    model_id: "models/gemini-3-flash-preview"
+    is_multimodal: true
+    client_kwargs:
+      thinking_config:
+        include_thoughts: true
+        thinking_level: low
+
+  - name: "gemini-3-flash-thinking-medium"
+    model_id: "models/gemini-3-flash-preview"
+    is_multimodal: true
+    client_kwargs:
+      thinking_config:
+        include_thoughts: true
+        thinking_budget: medium
+
+  - name: "gemini-3-flash-thinking-high"
+    model_id: "models/gemini-3-flash-preview"
+    is_multimodal: true
+    client_kwargs:
+      thinking_config:
+        include_thoughts: true
+        thinking_level: high
+
+  # ============= flash lite models ============= #
+
+  - name: "gemini-2.5-flash-lite"
+    model_id: "models/gemini-2.5-flash-lite"
+    is_multimodal: true
+
+  # ============= imagen models ============= #
+
+  - name: "gemini-2-flash-image"
+    model_id: "models/gemini-2.0-flash-preview-image-generation"
+    is_multimodal: true
+    image_response: true
+
+  - name: "gemini-2.5-flash-image"
+    model_id: "models/gemini-2.5-flash-image-preview"
+    is_multimodal: true
+    image_response: true
+
+  - name: "gemini-3-pro-image"
+    model_id: "models/gemini-3-pro-image-preview"
+    is_multimodal: true

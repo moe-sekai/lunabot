@@ -1,0 +1,67 @@
+presets:
+  # 万圣节预设
+  - image_paths:
+      - data/sekai/assets/static_images/random_triangle_bg_images/halloween/1.png
+      - data/sekai/assets/static_images/random_triangle_bg_images/halloween/2.png
+      - data/sekai/assets/static_images/random_triangle_bg_images/halloween/3.png
+      - data/sekai/assets/static_images/random_triangle_bg_images/halloween/4.png
+    image_weights: [1, 2, 1, 2]
+    image_colors:
+      - [255, 255, 255]
+    image_color_weights: [1]
+    scale: 1.5
+    dense: 1.5
+    main_color: [[0.29, 0.03, 0], [0.37, 0.03, 69]]
+    periods: 
+      - ["10-29 19:00", "10-30 06:00"]
+      - ["10-30 19:00", "10-31 06:00"]
+      - ["10-31 19:00", "11-01 06:00"]
+
+  # 圣诞节预设
+  - image_paths:
+      - data/sekai/assets/static_images/random_triangle_bg_images/xmas/1.png
+      - data/sekai/assets/static_images/random_triangle_bg_images/xmas/2.png
+      - data/sekai/assets/static_images/random_triangle_bg_images/xmas/3.png
+    image_weights: [1, 1, 4]
+    image_colors:
+      - [255, 255, 255]
+    image_color_weights: [1]
+    scale: 1.5
+    dense: 1.5
+    time_colors:
+      0:  [[0.30, 0.08, 271], [0.52, 0.13, 257]]
+      5:  [[0.48, 0.12, 257], [0.73, 0.18, 256]]
+      9:  [[0.57, 0.19, 257], [0.80, 0.09, 257]]
+      12: [[0.67, 0.23, 257], [0.90, 0.05, 257]]
+      15: [[0.57, 0.19, 257], [0.80, 0.09, 257]]
+      19: [[0.48, 0.12, 257], [0.73, 0.18, 256]]
+      24: [[0.30, 0.08, 271], [0.52, 0.13, 257]]
+    periods: 
+      - ["12-23 00:00", "12-26 06:00"]
+
+  # 默认预设
+  - image_paths: # 三角形图片路径
+      - data/sekai/assets/static_images/random_triangle_bg_images/classic/1.png
+      - data/sekai/assets/static_images/random_triangle_bg_images/classic/2.png
+      - data/sekai/assets/static_images/random_triangle_bg_images/classic/3.png
+    image_weights: [1, 6, 1]  # 三角形图片随机权重
+    image_colors: # 三角形颜色[R,G,B]
+      - [255, 189, 246]
+      - [183, 246, 255]
+      - [255, 247, 146]
+    image_color_weights: [1, 1, 1]  # 三角形颜色随机权重
+    scale: 1.0  # 三角形大小
+    dense: 1.0  # 三角形密集度
+    alpha: 1.0  # 三角形不透明度 默认1.0
+    time_colors:  # 三角形颜色(oklch)时间变化 hour:[L,C,H] 或渐变 hour:[[L,C,H],[L,C,H]]
+      0:  [[0.40, 0.06, 271], [0.62, 0.12, 257]]
+      5:  [[0.58, 0.10, 257], [0.83, 0.16, 256]]
+      9:  [[0.67, 0.16, 257], [0.90, 0.07, 257]]
+      12: [[0.77, 0.19, 257], [0.95, 0.05, 257]]
+      15: [[0.67, 0.16, 257], [0.90, 0.07, 257]]
+      19: [[0.58, 0.10, 257], [0.83, 0.16, 256]]
+      24: [[0.40, 0.06, 271], [0.62, 0.12, 257]]
+    main_color: null  # 主颜色(oklch) [L,C,H] 或渐变 [[L,C,H],[L,C,H]]，和time_colors二选一设置
+    gradient_start: [1, 0]  # 渐变起点的x,y坐标，范围0-1，默认[1,0]
+    gradient_end: [0, 1]    # 渐变终点的x,y坐标，范围0-1，默认[0,1]
+    periods: null     # 启用周期, null表示所有时间启用

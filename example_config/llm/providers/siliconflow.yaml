@@ -1,0 +1,29 @@
+qps_limit: 5
+quota_sync_interval_sec: 60*60*6
+price_unit: "￥"
+
+api_key: "xxx"
+base_url: "https://xxx/v1"
+user_info_url: "https://xxx/v1/user/info"
+
+models:
+  - name: "deepseek-r1"
+    model_id: "deepseek-ai/DeepSeek-R1"
+    input_pricing: 4/1e6
+    output_pricing: 16/1e6
+
+  - name: "deepseek-v3"
+    model_id: "deepseek-ai/DeepSeek-V3"
+    input_pricing: 2/1e6
+    output_pricing: 8/1e6
+
+  - name: "deepseek-r1-pro"
+    model_id: "Pro/deepseek-ai/DeepSeek-R1"
+    input_pricing: 4/1e6
+    output_pricing: 16/1e6
+
+  - name: "deepseek-vl2"
+    model_id: "deepseek-ai/deepseek-vl2"
+    input_pricing: 0.99/1e6
+    output_pricing: 0.99/1e6
+    is_multimodal: true

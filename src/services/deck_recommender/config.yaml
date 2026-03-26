@@ -1,0 +1,4 @@
+host: 127.0.0.1
+port: 45556
+data_dir: "data/sekai/deckrec"
+worker_num: 4

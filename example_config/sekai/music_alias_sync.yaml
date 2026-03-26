@@ -1,0 +1,9 @@
+url: https://xxx/alias/v1/music/{mid} # 歌曲别名更新API
+
+regions:
+  - "jp"
+sync_times:
+  - ["*/6", "0", "0"]
+
+sync_batch_interval: 1
+sync_batch_size: 8

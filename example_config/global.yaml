@@ -1,0 +1,102 @@
+log_level: "INFO"
+superuser:
+  - 12345678
+
+confirm_actions_timeout_seconds: 300
+
+startup_task_delay_seconds:
+  min: 0
+  max: 3
+
+profile_at_starup:
+  enable: false
+  clock_type: "cpu"
+  seconds: 10
+
+memray_at_startup:
+  enable: false
+  seconds: 300
+
+file_db:
+  save_interval_seconds: 5  # FileDB保存间隔时间，设为0则在修改后立刻保存
+
+timer:
+  enable: false
+  log_prefix:
+    - handler
+    - sekaihandler
+
+group_member_name_cache_expire_seconds: 300   # 群成员名称缓存过期时间（秒）
+stranger_name_cache_expire_seconds: 300       # 陌生人名称缓存过期时间（秒）
+group_name_cache_expire_seconds: 3600         # 群名称缓存过期时间（秒）
+bot_group_cache_expire_seconds: 60            # bot所在群缓存过期时间（秒）
+bot_friend_cache_expire_seconds: 60           # bot好友缓存过期时间（秒）
+
+msg_send:
+  rate_limit:
+    second: 10  # 每秒限制发送消息的数量
+    day: 4000   # 每天限制发送消息的数量
+  failed_mail_interval: 600  # 发送消息发送异常邮件的间隔（秒）
+  
+  default_fold_threshold: 20            # 默认折叠行数阈值
+  default_fold_fallback_method: "none"  # 默认发送折叠消息失败时的回退方法
+  max_fold_msg_segment_count: 5         # 折叠消息分段数量限制
+  max_fold_msg_len: 6000                # 折叠消息长度限制 
+
+  tmp_img_keep_minutes: 5  # 临时图片保存时间（分钟）
+
+  low_quality_image:
+    default_quality: 75
+    default_subsampling: 2
+    default_optimize: True
+
+font:
+  path: "/root/.fonts/MicrosoftYaHei/Microsoft Yahei.ttf"  # 中文字体路径
+  name: "Microsoft YaHei"                                  # Matplotlib库使用的中文字体名称
+
+default_cd: 2             # 默认指令处理冷却时间（秒）
+cd_verbose_interval: 30   # 间隔多少秒输出一次"当前正在冷却"提示
+
+exception_mail:   # 发送异常消息邮件的配置
+  host: "smtp.qq.com"          # 邮箱服务器地址
+  port: 587                    # 邮箱服务器端口
+  user: "xxx@qq.com"           # SMTP 认证用户名
+  pass: "xxx"                  # SMTP 认证密码
+  from: "xxx@qq.com"           # 发件邮箱 (如果使用QQ邮箱则和user一致)
+  use_tls: true                # 是否使用 TLS 加密连接
+  receivers:                   # 邮箱接收者列表
+    - xxx@qq.com
+
+default_thread_pool_size: 4   # 默认线程池大小，较大值可能会大幅增加内存占用
+
+safety_check:
+  enabled: false
+  secret_id: xxx
+  secret_key: xxx
+  endpoint: ims.tencentcloudapi.com
+
+
+plot:
+  debug: False
+  log_draw_time: False
+  canvas_size_limit: [4096, 4096]
+
+painter:
+  debug: False
+  process_num: 4  # 设置为0时在主进程使用多线程绘制
+  log_operation: False
+  font_cache_num: 16
+  roundrect_aa_target_radius: 32
+  emoji:
+    offset: [0, 2]
+    scale: 1.1
+
+
+playwright:
+  # 如使用 Docker，请共享 data/utils/tmp/ 文件夹到与 Playwright 容器内目录一致
+  context_num: 8
+  remote_url: "" # 远程 Playwright WS 端点 (例如 "ws://localhost:3000")。留空则启动本地浏览器。
+  browser_type: "chromium" # chromium, firefox, webkit
+
+
+allow_code_exec: false   # 是否允许通过 /exec 指令执行代码

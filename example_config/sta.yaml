@@ -1,0 +1,6 @@
+statistic_time: [23, 50, 00]  # 自动发送统计时间 [hour, minute, second]
+name_len_limit: 16            # 用户名长度限制
+pie_topk: 9                   # 饼图显示的前k名
+plot_topk: 5                  # 折线图显示的前k名
+plot_interval: 15             # 折线图的时间间隔（分钟）
+sta_word_topk: 8              # 词汇统计显示前k个用户

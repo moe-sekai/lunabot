@@ -1,0 +1,6 @@
+aiohttp
+uvloop
+orjson
+pyyaml
+setproctitle
+aiosqlite

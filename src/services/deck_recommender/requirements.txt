@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+uvloop
+orjson
+pyyaml
+zstandard
+setproctitle
+sekai-deck-recommend-cpp

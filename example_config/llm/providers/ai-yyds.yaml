@@ -1,0 +1,115 @@
+qps_limit: 5
+quota_sync_interval_sec: 60*60*6
+price_unit: "$"
+
+api_key: "xxx"
+base_url: "https://xxx/v1"
+
+login_url: "https://xxx/login"
+username: "xxx"
+password: "xxx"
+
+quota_url: "https://xxx/api/user/self"
+
+models:
+  - name: "gpt-5"
+    input_pricing: 0.000001875
+    output_pricing: 0.000015
+    is_multimodal: false
+
+  - name: "gpt-5-mini"
+    input_pricing: 0.000000375
+    output_pricing: 0.000003
+    is_multimodal: false
+
+  - name: "gpt-5-nano"
+    input_pricing: 0.000000075
+    output_pricing: 0.0000006
+    is_multimodal: false
+
+  - name: "gpt-4.1"
+    input_pricing: 0.000003
+    output_pricing: 0.000012
+    is_multimodal: true
+
+  - name: "gpt-4.1-mini"
+    input_pricing: 0.0000006
+    output_pricing: 0.0000024
+    is_multimodal: true
+
+  - name: "gpt-4.1-nano"
+    input_pricing: 0.00000015
+    output_pricing: 0.0000006
+    is_multimodal: true
+
+  - name: "o4-mini"
+    input_pricing: 0.00000165
+    output_pricing: 0.0000066
+    is_multimodal: true
+
+  - name: "o4-mini-high"
+    input_pricing: 0.00000165
+    output_pricing: 0.0000066
+    is_multimodal: true
+
+  - name: "o3-mini"
+    input_pricing: 0.00000165
+    output_pricing: 0.0000066
+    data:
+      reasoning_effort: "high"
+
+  - name: "gpt-4o-mini"
+    input_pricing: 0.000000225
+    output_pricing: 0.0000009
+    is_multimodal: true
+
+  - name: "gpt-4o"
+    input_pricing: 0.00000375
+    output_pricing: 0.000015
+    is_multimodal: true
+
+  - name: "claude-sonnet-4"
+    model_id: "claude-sonnet-4-20250514"
+    input_pricing: 0.0000045
+    output_pricing: 0.0000225
+    is_multimodal: true
+
+  - name: "claude-opus-4"
+    model_id: "claude-opus-4-20250514"
+    input_pricing: 0.0000225
+    output_pricing: 0.0001125
+    is_multimodal: true
+
+  - name: "gemini-2.5-pro"
+    model_id: "gemini-2.5-pro-preview"
+    input_pricing: 0.00375/1000
+    output_pricing: 0.0225/1000
+    is_multimodal: true
+
+  - name: "gemini-2.5-flash"
+    model_id: "gemini-2.5-flash-preview-05-20"
+    input_pricing: 0.000225/1000
+    output_pricing: 0.0009/1000
+    is_multimodal: true
+
+  - name: "gemini-2.5-flash-thinkinbg"
+    model_id: "gemini-2.5-flash-preview-05-20:thinking"
+    input_pricing: 0.000225/1000
+    output_pricing: 0.0009/1000
+    is_multimodal: true
+
+  - name: "gpt-oss-120b"
+    model_id: "gpt-oss-120b"
+    input_pricing: 0.000225/1000
+    output_pricing: 0.001125/1000
+
+  - name: "gpt-oss-20b"
+    model_id: "gpt-oss-20b"
+    input_pricing: 0.00015/1000
+    output_pricing: 0.00075/1000
+
+  - name: "grok-4"
+    model_id: "grok-4-0709"
+    input_pricing: 0.00675/1000
+    output_pricing: 0.03375/1000
+    is_multimodal: true

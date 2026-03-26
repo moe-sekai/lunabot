@@ -1,0 +1,5 @@
+query_interval: 2                 # 向卫星地图查询的间隔（s）
+queue_consume_interval: 1         # 队列消费间隔（s）
+query_offset: -1000               # 查询时间的偏移量 (ms)
+disconnect_notify_count: 60       # 和服务器断联多少次后提醒 (s)
+player_time_update_interval: 60   # 超过多少秒自动更新玩家在线时间 (s)

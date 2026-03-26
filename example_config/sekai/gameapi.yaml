@@ -1,0 +1,15 @@
+# 日服
+jp:
+  profile_api_url:                "https://xxx/api/jp/user/{uid}/profile"       # 游戏API: 获取用户profile
+  suite_api_url:                  "https://xxx/api/jp/user/{uid}/suite"         # 游戏API: 获取用户suite
+  ranking_api_url:                "https://xxx/api/jp/event/{event_id}/ranking" # 游戏API: 获取活动排名
+  send_boost_api_url:             "https://xxx/api/jp/user/{uid}/send_boost"    # 游戏API: 送火
+  create_account_api_url:         "https://xxx/api/jp/create_account"           # 游戏API: 创建账号
+  
+  # suite数据需要包含upload_time字段，内容为单位为秒的时间戳
+  # 目前使用到的suite数据字段：'userCards','userDecks','userGamedata','userMusics','userMusicResults','userAreas','userChallengeLiveSoloDecks','userCharacters','userMysekaiCanvases','userMysekaiFixtureGameCharacterPerformanceBonuses','userMysekaiGates','userWorldBloomSupportDecks','userHonors','userChallengeLiveSoloResults','userChallengeLiveSoloStages','userChallengeLiveSoloHighScoreRewards','userEvents','userWorldBlooms','userMusicAchievements','userPlayerFrames','userMaterials','upload_time',
+  # 字节服suite数据中的compact格式字段需要处理为日服同格式
+
+# 台服（繁中）
+tw:
+  # ...

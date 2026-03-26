@@ -1,0 +1,4 @@
+websockets
+chromadb
+aiorpcx
+orjson
