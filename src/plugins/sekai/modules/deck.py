@@ -393,7 +393,7 @@ async def extract_target_event_or_simulate_event(
 
         prefix = args[:percent_index].strip()
         args = f"{prefix} {rest_after_attr}".strip()
-                    return args
+        return args
 
     # 25需要优先匹配团队，对于活动id内包含25的情况，必须让团队的25两边不能有数字或者"event"、"活动"
     # 这样只有想以单独数字25指定25期活动时可能产生歧义，为该情况额外添加用户提示
